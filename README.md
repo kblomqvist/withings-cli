@@ -1,4 +1,5 @@
 # Withings CLI
+[![Number of downloads during the last month](https://img.shields.io/pypi/dm/withings-cli.svg)](https://pypi.python.org/pypi/withings-cli/)
 
 A simple way to query Withings API from command line.
 
@@ -36,7 +37,7 @@ The following call should show mes details — if the above step was accomplishe
 withings whois me
 ```
 
-### Try query mes body measures
+### Query mes body measures
 
 ```bash
 withings query -v1 -s measure -p action getmeas me
