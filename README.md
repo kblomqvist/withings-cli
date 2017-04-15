@@ -3,6 +3,12 @@
 
 A simple way to query Withings API from command line.
 
+### Installation
+
+```bash
+pip install withings-cli
+```
+
 ### Set your API key and secret
 
 [Register as a Withings developer](https://oauth.withings.com/partner/add)
