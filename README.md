@@ -47,7 +47,7 @@ See how the query format corresponds to
 [Withings API reference](https://oauth.withings.com/api/doc)
 
 ```
-withings query -v[VERSION] -s SERVICE -p NAME VALUE -p NAME VALUE ... USER
+withings query -v[VERSION] -s SERVICE -p PARAM VALUE -p PARAM VALUE ... USER
 ```
 
 ### Read help for more commands
