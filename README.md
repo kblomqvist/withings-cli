@@ -3,6 +3,10 @@
 
 A simple way to query Withings API from command line.
 
+```
+withings query -v[VERSION] -s SERVICE -p PARAM VALUE -p PARAM VALUE ... USER
+```
+
 ### Installation
 
 ```bash
@@ -50,11 +54,7 @@ withings query -v1 -s measure -p action getmeas me
 ```
 
 See how the query format corresponds to
-[Withings API reference](https://oauth.withings.com/api/doc)
-
-```
-withings query -v[VERSION] -s SERVICE -p PARAM VALUE -p PARAM VALUE ... USER
-```
+[Withings API reference](https://oauth.withings.com/api/doc#api-Measure-get_measure): `https://wbsapi.withings.net/measure?action=getmeas`
 
 ### Read help for more commands and options
 
