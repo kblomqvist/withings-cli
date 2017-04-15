@@ -71,9 +71,9 @@ def cli():
 @click.argument('opt', type=str)
 @click.argument('value', type=str)
 def config(opt, value):
-    """Configure Withings client key and secret.
+    """Configure Withings API key and secret.
 
-    For example, 'withings config api_key 77..cf379b'
+    For example, 'withings config apikey 77..cf379b'
     """
     if opt not in CONFIG_OPTIONS:
         click.echo("Invalid config: Not in {}".format(CONFIG_OPTIONS))
@@ -91,7 +91,7 @@ def config(opt, value):
 @cli.command()
 @click.argument('user')
 def add(user):
-    """Authorize withings-cli to access user information."""
+    """Authorize to access user information."""
     from requests_oauthlib import OAuth1Session
     configs = load_configs()
 
@@ -128,6 +128,7 @@ def add(user):
 
 @cli.command()
 def list():
+    """Prints user list."""
     configs = load_configs()
     try:
         for user in configs['users'].keys():
