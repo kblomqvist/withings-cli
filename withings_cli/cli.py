@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 import click
-import toml
+import pytoml as toml
 import json
 import webbrowser
 import collections
