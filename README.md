@@ -12,11 +12,11 @@ withings config apikey [KEY]
 withings config apisecret [SECRET]
 ```
 
-Note! Do not disclose your API secret to anyone. As per the Withings'
+*Note!* Do not disclose your API secret to anyone. As per the Withings'
 Terms of Service, you are responsible for maintaining the secrecy
 and security of your keys.
 
-Note! Keys will be stored to `~/.withings`, programmatically chmod to 0600.
+*Note!* Keys will be stored in `~/.withings` (programmatically chmod to 0600).
 
 ### Add user
 
@@ -24,13 +24,13 @@ Note! Keys will be stored to `~/.withings`, programmatically chmod to 0600.
 withings add me
 ```
 
-Note! When calling add a browser will be opened. For withings-cli to be
-able to access user data, the user should allow it to do so (*me* in
-this case).
+*Note!* For withings-cli to be able to access user data, the user should allow
+it to do so (*me* in this case). This call will automatically open a web browser
+directed to Withings account login page.
 
 ### Check who am I
 
-The following call should show mes details — if the above was accomplished.
+The following call should show mes details — if the above step was accomplished.
 
 ```bash
 withings whois me
@@ -42,8 +42,8 @@ withings whois me
 withings query -v1 -s measure -p action getmeas me
 ```
 
-Query format maps with [Withings API reference](https://oauth.withings.com/api/doc),
-and looks like this
+See how the query format corresponds to
+[Withings API reference](https://oauth.withings.com/api/doc)
 
 ```
 withings query -v[VERSION] -s SERVICE -p NAME VALUE -p NAME VALUE ... USER
