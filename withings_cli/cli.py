@@ -142,8 +142,8 @@ def list():
 @click.option('--version', '-v', type=int, help='Withings API version.')
 @click.option('--service', '-s', type=str, help='Withings API service.')
 @click.option('--param', '-p', type=(str, str), multiple=True, help='Withings API service parameters.')
-@click.option('--pp', is_flag=True, help='Pretty print results.')
-@click.option('--debug', is_flag=True, help='Show request URI')
+@click.option('--pp', is_flag=True, help='Pretty print query result.')
+@click.option('--debug', is_flag=True, help='Show query URI.')
 def query(user, version, service, param, pp, debug):
     """Runs API query for a given user.
 

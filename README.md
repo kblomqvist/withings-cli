@@ -56,8 +56,9 @@ See how the query format corresponds to
 withings query -v[VERSION] -s SERVICE -p PARAM VALUE -p PARAM VALUE ... USER
 ```
 
-### Read help for more commands
+### Read help for more commands and options
 
 ```bash
 withings --help
+withings query --help
 ```
