@@ -24,22 +24,19 @@ Note! Keys will be stored to `~/.withings`, programmatically chmod to 0600.
 withings add me
 ```
 
-Note! When calling add, a browser will be opened. For withings-cli to be
-able to access user data, he/she should allow it to do so. This is done by
-logging in to Withings account, which is wanted to be added (*me* in this case).
+Note! When calling add a browser will be opened. For withings-cli to be
+able to access user data, the user should allow it to do so (*me* in
+this case).
 
 ### Check who am I
 
-In case step 2 was accomplished successfully, the following call
-should show me's details.
+The following call should show mes details — if the above was accomplished.
 
 ```bash
 withings whois me
 ```
 
-### Try a general query
-
-The following query will fetch me's body measures.
+### Try query mes body measures
 
 ```bash
 withings query -v1 -s measure -p action getmeas me
