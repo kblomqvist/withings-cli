@@ -9,7 +9,7 @@ with open('withings_cli/cli.py', 'rb') as f:
         f.read().decode('utf-8')).group(1)))
 
 setup(
-    name="withings_cli",
+    name="withings-cli",
     author="Kim Blomqvist",
     author_email="kblomqvist@iki.fi",
     version=__version__,
@@ -32,6 +32,6 @@ setup(
         "Programming Language :: Python :: 3.6",
         "License :: OSI Approved :: MIT License",
     ],
-    url="https://github.com/kblomqvist/withings_cli",
-    #download_url="https://github.com/kblomqvist/withings_cli/tarball/" + __version__,
+    url="https://github.com/kblomqvist/withings-cli",
+    download_url="https://github.com/kblomqvist/withings-cli/tarball/" + __version__,
 )
