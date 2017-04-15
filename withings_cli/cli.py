@@ -32,7 +32,7 @@ from os import path
 from BaseHTTPServer import HTTPServer
 from BaseHTTPServer import BaseHTTPRequestHandler
 
-__version__ = 'dev'
+__version__ = '0.1'
 
 CONFIG_FILE = path.join(path.expanduser("~"), '.withings')
 CONFIG_OPTIONS = ('apikey', 'apisecret')
