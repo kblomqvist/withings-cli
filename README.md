@@ -1,4 +1,5 @@
 # Withings CLI
+[![PyPI](https://img.shields.io/pypi/pyversions/withings-cli.svg)]()
 [![Number of downloads during the last month](https://img.shields.io/pypi/dm/withings-cli.svg)](https://pypi.python.org/pypi/withings-cli/)
 
 A simple way to query Withings API from command line.
