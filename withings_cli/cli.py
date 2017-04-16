@@ -25,10 +25,8 @@ SOFTWARE.
 __version__ = 'dev'
 
 import click
-import pytoml as toml
 import json
 import webbrowser
-import collections
 
 try:
     from http.server import HTTPServer
@@ -38,13 +36,8 @@ except ImportError:
     from BaseHTTPServer import HTTPServer
     from BaseHTTPServer import BaseHTTPRequestHandler
 
-from os import path
-CONFIG_FILE = path.join(path.expanduser("~"), '.withings')
-CONFIG_OPTIONS = ('apikey', 'apisecret')
+from .config import CONFIG
 
-CALLBACK_URI = ('localhost', 1337)
-WITHINGS_API_URI = 'https://wbsapi.withings.net'
-WITHINGS_OAUTH_URI = 'https://oauth.withings.com/account'
 
 class CallbackHandler(BaseHTTPRequestHandler):
 
@@ -59,38 +52,20 @@ class CallbackHandler(BaseHTTPRequestHandler):
         return  # Silence log messages
 
 
-def load_configs():
-    try:
-        with open(CONFIG_FILE, 'r') as file:
-            return toml.load(file)
-    except EnvironmentError:
-        return dict()
-
-
 @click.group()
 def cli():
     pass
 
 
 @cli.command()
-@click.argument('opt', type=str)
+@click.argument('option', type=str)
 @click.argument('value', type=str)
-def config(opt, value):
+def config(option, value):
     """Configure Withings API key and secret.
 
     For example, 'withings config apikey 77..cf379b'
     """
-    if opt not in CONFIG_OPTIONS:
-        click.echo("Invalid config: Not in {}".format(CONFIG_OPTIONS))
-        raise click.Abort()
-
-    configs = load_configs()
-    configs[opt] = value
-    with open(CONFIG_FILE, 'w') as file:
-        toml.dump(configs, file)
-    
-    from os import chmod
-    chmod(CONFIG_FILE, 0o600)
+    CONFIG[option] = value
 
 
 @cli.command()
@@ -98,12 +73,12 @@ def config(opt, value):
 def add(user):
     """Authorize to access user information."""
     from requests_oauthlib import OAuth1Session
-    configs = load_configs()
+    from .config import WITHINGS_OAUTH_URI, CALLBACK_URI
 
     try:
         oauth = OAuth1Session(
-            configs['apikey'],
-            configs['apisecret'],
+            CONFIG['apikey'],
+            CONFIG['apisecret'],
             callback_uri='http://{}:{}'.format(*CALLBACK_URI)
         )
     except KeyError:
@@ -121,25 +96,15 @@ def add(user):
     httpd.handle_request()
 
     tokens = oauth.fetch_access_token(WITHINGS_OAUTH_URI + '/access_token')
-
-    if not 'users' in configs:
-        configs['users'] = dict()
-    configs['users'][user] = tokens
-    with open(CONFIG_FILE, 'w') as file:
-        toml.dump(configs, file)
-
+    CONFIG['users'][user] = tokens
     click.echo('User \'{}\' has been added.'.format(user))
 
 
 @cli.command()
 def list():
     """Prints user list."""
-    configs = load_configs()
-    try:
-        for user in configs['users'].keys():
-            click.echo(user)
-    except KeyError:
-        pass
+    for user in CONFIG['users'].keys():
+        click.echo(user)
 
 
 @cli.command()
@@ -157,6 +122,7 @@ def query(user, version, service, param, pp, debug):
     """
     from sys import stderr
     from requests_oauthlib import OAuth1Session
+    from .config import WITHINGS_API_URI
 
     if version is 2:
         uri = WITHINGS_API_URI + '/v2'
@@ -164,9 +130,8 @@ def query(user, version, service, param, pp, debug):
         uri = WITHINGS_API_URI
     uri += '/{}'.format(service)
 
-    configs = load_configs()
     try:
-        user = configs['users'][user]
+        user = CONFIG['users'][user]
     except KeyError:
         click.echo('Unknown user \'{}\'.'.format(user))
         raise click.Abort()
@@ -175,8 +140,8 @@ def query(user, version, service, param, pp, debug):
     params['userid'] = user['userid']
 
     oauth = OAuth1Session(
-        configs['apikey'],
-        configs['apisecret'],
+        CONFIG['apikey'],
+        CONFIG['apisecret'],
         resource_owner_key=user['oauth_token'],
         resource_owner_secret=user['oauth_token_secret'],
         signature_type='query'
