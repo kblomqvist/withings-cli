@@ -1,6 +1,17 @@
 # Withings CLI
+[![Number of downloads during the last month](https://img.shields.io/pypi/dm/withings-cli.svg)](https://pypi.python.org/pypi/withings-cli/)
 
 A simple way to query Withings API from command line.
+
+```
+withings query -v[VERSION] -s SERVICE -p PARAM VALUE -p PARAM VALUE ... USER
+```
+
+### Installation
+
+```bash
+pip install withings-cli
+```
 
 ### Set your API key and secret
 
@@ -36,21 +47,18 @@ The following call should show mes details — if the above step was accomplishe
 withings whois me
 ```
 
-### Try query mes body measures
+### Query mes body measures
 
 ```bash
 withings query -v1 -s measure -p action getmeas me
 ```
 
 See how the query format corresponds to
-[Withings API reference](https://oauth.withings.com/api/doc)
+[Withings API reference](https://oauth.withings.com/api/doc#api-Measure-get_measure): `https://wbsapi.withings.net/measure?action=getmeas`
 
-```
-withings query -v[VERSION] -s SERVICE -p NAME VALUE -p NAME VALUE ... USER
-```
-
-### Read help for more commands
+### Read help for more commands and options
 
 ```bash
 withings --help
+withings query --help
 ```
