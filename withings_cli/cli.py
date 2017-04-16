@@ -22,18 +22,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+__version__ = 'dev'
+
 import click
 import pytoml as toml
 import json
 import webbrowser
 import collections
 
+try:
+    from http.server import HTTPServer
+    from http.server import BaseHTTPRequestHandler
+except ImportError:
+    # Fallback to Python 2
+    from BaseHTTPServer import HTTPServer
+    from BaseHTTPServer import BaseHTTPRequestHandler
+
 from os import path
-from BaseHTTPServer import HTTPServer
-from BaseHTTPServer import BaseHTTPRequestHandler
-
-__version__ = 'dev'
-
 CONFIG_FILE = path.join(path.expanduser("~"), '.withings')
 CONFIG_OPTIONS = ('apikey', 'apisecret')
 
@@ -47,11 +52,11 @@ class CallbackHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        self.wfile.write("Withings-cli: you may close this tab.")
+        self.wfile.write('Withings-cli: you may close this tab.'.encode())
         self.oauth.parse_authorization_response(self.path)
 
     def log_message(self, format, *args):
-        return
+        return  # Silence log messages
 
 
 def load_configs():
@@ -157,10 +162,14 @@ def query(user, version, service, param, pp, debug):
         uri = WITHINGS_API_URI + '/v2'
     else:
         uri = WITHINGS_API_URI
-    uri += "/{}".format(service)
+    uri += '/{}'.format(service)
 
     configs = load_configs()
-    user = configs['users'][user]
+    try:
+        user = configs['users'][user]
+    except KeyError:
+        click.echo('Unknown user \'{}\'.'.format(user))
+        raise click.Abort()
 
     params = dict(param)
     params['userid'] = user['userid']
@@ -174,7 +183,7 @@ def query(user, version, service, param, pp, debug):
     )
 
     r = oauth.get(uri, params=params)
-    content = json.loads(r.content)
+    content = json.loads(r.content.decode())
 
     if debug:
         click.echo(r.url, file=stderr)
