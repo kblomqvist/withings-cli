@@ -82,7 +82,7 @@ def add(user):
             callback_uri='http://{}:{}'.format(*CALLBACK_URI)
         )
     except KeyError:
-        click.echo('Oops... missing Withings client key and secret')
+        click.echo('Oops. Missing Withings apikey and apisecret.')
         raise click.Abort()
 
     oauth.fetch_request_token(WITHINGS_OAUTH_URI + '/request_token')
