@@ -88,7 +88,8 @@ def add(user):
     oauth.fetch_request_token(WITHINGS_OAUTH_URI + '/request_token')
     url = oauth.authorization_url(WITHINGS_OAUTH_URI + '/authorize')
 
-    click.echo('Authorize withings-cli to access user information.')
+    click.echo('Redirecting to Withings login page...')
+    click.echo('- Log in as a user to whom you want access to be granted.')
     webbrowser.open_new_tab(url)
 
     CallbackHandler.oauth = oauth
