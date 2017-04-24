@@ -24,7 +24,7 @@ withings config apikey [KEY]
 withings config apisecret [SECRET]
 ```
 
-*Note!* Do not disclose your API secret to anyone. As per the Withings'
+*Note!* Do not disclose your API secret to anyone, as per the Withings'
 Terms of Service, you are responsible for maintaining the secrecy
 and security of your keys.
 
