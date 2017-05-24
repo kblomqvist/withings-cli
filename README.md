@@ -5,7 +5,7 @@
 A simple way to query Withings API from command line.
 
 ```
-withings query -v[VERSION] -s SERVICE -p PARAM VALUE -p PARAM VALUE ... USER
+withings query [-v API_VERSION] -s SERVICE -p PARAM VALUE -p PARAM VALUE ... USER
 ```
 
 ### Installation
